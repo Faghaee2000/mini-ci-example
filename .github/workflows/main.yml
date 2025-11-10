@@ -1,0 +1,22 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  continuous_integration:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Run a one-line script
+        run: echo Start to test and build the artifact
+
+      - name: Run test and build
+        run: |
+          go test -v ./...
+          CGO_ENABLED=0 GOARCH=amd64 go build -o demo
